@@ -5,7 +5,17 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Add any other configuration options you had in next.config.ts
+  // Exclude the /og route from static export
+  distDir: 'out',
+  exportPathMap: async function () {
+    return {
+      '/': { page: '/' },
+      // Add other static routes here
+      // '/blog': { page: '/blog' },
+      // '/portfolio': { page: '/portfolio' },
+      // '/projects': { page: '/projects' },
+    }
+  }
 }
 
 module.exports = nextConfig 
