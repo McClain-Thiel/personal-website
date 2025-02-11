@@ -25,7 +25,8 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: ''
+          NODE_ENV: production
 
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
@@ -34,4 +35,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out 
+          publish_dir: ./out
+          cname: mcclainthiel.com 
