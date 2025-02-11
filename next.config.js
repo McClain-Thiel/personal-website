@@ -5,17 +5,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Exclude the /og route from static export
-  distDir: 'out',
-  exportPathMap: async function () {
-    return {
-      '/': { page: '/' },
-      // Add other static routes here
-      // '/blog': { page: '/blog' },
-      // '/portfolio': { page: '/portfolio' },
-      // '/projects': { page: '/projects' },
-    }
-  }
+  // Skip OG route generation during static export
+  experimental: {
+    skipTrailingSlashRedirect: true,
+  },
+  distDir: 'out'
 }
 
 module.exports = nextConfig 
