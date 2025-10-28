@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>McClain Thiel</title>
-<meta name="description" content="McClain Thiel's personal website" />
+<title>Post - McClain Thiel</title>
+<meta name="description" content="McClain Thiel's blog post" />
 <style>
   /* ——— Base + theme ——— */
   :root{
@@ -31,7 +31,8 @@
   /* ——— Layout ——— */
   .wrap{ max-width: 820px; padding: 48px 20px 96px; margin: 0 auto; }
   .row{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
-  .name{ font-weight:700; margin:0 0 18px; font-size: 18px; }
+  .name{ font-weight:700; margin:0 0 8px; font-size: 18px; }
+  .post-meta{ color:var(--muted); margin:0 0 32px; font-size:14px; }
   .lead{ margin:0 0 22px; font-size:16px; }
   .muted{ color:var(--muted) }
 
@@ -39,26 +40,43 @@
   a{ color:var(--link); text-underline-offset: 2px }
   a:hover{ text-decoration-thickness: 2px }
 
-  /* ——— Collapsibles ——— */
-  details{ margin: 18px 0 8px; }
-  summary{
-    list-style:none; cursor:pointer; outline:none;
-    font-weight:700; display:inline-flex; align-items:center; gap:.5rem;
+  /* ——— Blog content ——— */
+  .content{ margin: 24px 0; line-height: 1.7; }
+  .content h1{ font-size: 22px; font-weight: 700; margin: 32px 0 16px; }
+  .content h2{ font-size: 18px; font-weight: 700; margin: 28px 0 12px; }
+  .content h3{ font-size: 16px; font-weight: 700; margin: 24px 0 12px; }
+  .content p{ margin: 16px 0; }
+  .content ul, .content ol{ margin: 16px 0; padding-left: 24px; }
+  .content li{ margin: 8px 0; }
+  .content code{
+    background: var(--card);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 14px;
   }
-  summary::-webkit-details-marker{ display:none }
-  /* caret */
-  summary::before{
-    content:"▾"; width:1ch; display:inline-block; color:var(--caret);
-    transform: translateY(-1px) rotate(0deg); transition: transform .15s ease;
+  .content pre{
+    background: var(--card);
+    padding: 16px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 16px 0;
   }
-  details:not([open]) summary::before{ content:"▸"; transform: translateY(-1px); }
-  /* bracketed label look */
-  summary .label{ font-weight:700 }
-  .block{ padding: 8px 0 0 18px; }
-  .block p{ margin: 10px 0 }
-  .block ul{ margin: 8px 0 8px 18px }
+  .content pre code{
+    background: none;
+    padding: 0;
+  }
+  .content blockquote{
+    border-left: 3px solid var(--rule);
+    margin: 16px 0;
+    padding-left: 16px;
+    color: var(--muted);
+  }
+  .content img{
+    max-width: 100%;
+    height: auto;
+    margin: 16px 0;
+  }
 
-  /* ——— Social footer ——— */
   .social{
     position: fixed; left: 24px; bottom: 28px; right: 24px;
     display:flex; gap:18px; align-items:center; color:var(--muted);
@@ -78,48 +96,21 @@
 <body>
   <div class="wrap">
     <div class="row">
-      <div>
-        <p class="name">McClain Thiel</p>
+      <div style="flex:1">
         <p class="lead">
-          Researcher and Engineer
+          <a href="blog.html">← Back to blog</a>
         </p>
       </div>
       <button id="themeBtn" class="theme" aria-label="Toggle theme" title="Toggle theme">☼</button>
     </div>
 
-    <details open>
-      <summary><span class="label">[About]</span></summary>
-      <div class="block">
-        <p>I'm a researcher and engineer interested in ML, RL and biology currently doing a PhD at UCL under the supervision of <a href="https://ucl-cssb.github.io/">Chris Barnes</a> and and also an <a href="https://encode.pillar.vc/">Encode: AI for Science PhD fellow</a> supported by Pillar VC and Aria.  </a></p>
-        <p>I also consult. I work on ML, RL and Databricks projects for clients.</p>
-        <p>I grew up in San Diego, CA and now live in London. </p>
+    <article>
+      <h1 class="name" id="postTitle">Loading...</h1>
+      <p class="post-meta" id="postDate"></p>
+      <div class="content" id="postContent">
+        <p style="color:var(--muted)">Loading post...</p>
       </div>
-    </details>
-
-    <details>
-      <summary><span class="label">[Previously]</span></summary>
-      <div class="block">
-          <li>Founder @ WEALTHAWK — Acquired by Praxis Solutions. AI powered prospect development for wealth managers.</li>
-          <li>Sr. Machine Learning Engineer @ Snorkel.ai — one sentence on impact.</li>
-          <li>Machine Learning Scientist @ Tempus AI — one sentence on impact.</li>
-          <li>B.A. in Data Science @ UC Berkeley - minor in BioEngineering</li>
-
-      </div>
-    </details>
-
-    <details open>
-      <summary><span class="label">[Interests]</span></summary>
-      <div class="block">
-        <p>I love basketball, padel and travel. I spend a lot of time in the start up space and am interested in AI for science.</p>
-      </div>
-    </details>
-
-    <details open>
-      <summary><span class="label">[Contact]</span></summary>
-      <div class="block">
-        <p>me [at] mcclainthiel [dot] com</p>
-      </div>
-    </details>
+    </article>
 
     <hr class="rule" />
   </div>
@@ -132,6 +123,7 @@
     <a href="blog.html">Blog</a>
   </div>
 
+<script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/marked.min.js"></script>
 <script>
   // Theme toggle with memory
   const root = document.documentElement;
@@ -148,6 +140,49 @@
     localStorage.setItem(KEY, next);
     updateIcon();
   });
+
+  // Load blog post
+  async function loadPost() {
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get('id');
+    
+    if (!postId) {
+      document.getElementById('postTitle').textContent = 'Post not found';
+      document.getElementById('postContent').innerHTML = '<p style="color:var(--muted)">No post ID provided.</p>';
+      return;
+    }
+    
+    try {
+      // Load posts metadata
+      const response = await fetch('blog/posts.json');
+      const posts = await response.json();
+      const post = posts.find(p => p.id === postId);
+      
+      if (!post) {
+        throw new Error('Post not found');
+      }
+      
+      document.getElementById('postTitle').textContent = post.title;
+      document.getElementById('postDate').textContent = post.date;
+      document.title = `${post.title} - McClain Thiel`;
+      
+      // Load markdown content
+      const mdResponse = await fetch(`blog/${post.file}`);
+      const markdown = await mdResponse.text();
+      
+      // Convert markdown to HTML
+      const html = marked.parse(markdown);
+      document.getElementById('postContent').innerHTML = html;
+      
+    } catch (err) {
+      document.getElementById('postTitle').textContent = 'Post not found';
+      document.getElementById('postContent').innerHTML = 
+        '<p style="color:var(--muted)">Could not load post. Make sure blog/posts.json exists and contains valid post data.</p>';
+    }
+  }
+
+  loadPost();
 </script>
 </body>
 </html>
+

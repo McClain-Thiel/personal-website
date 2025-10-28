@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>McClain Thiel</title>
-<meta name="description" content="McClain Thiel's personal website" />
+<title>Blog - McClain Thiel</title>
+<meta name="description" content="McClain Thiel's blog" />
 <style>
   /* ——— Base + theme ——— */
   :root{
@@ -39,26 +39,20 @@
   a{ color:var(--link); text-underline-offset: 2px }
   a:hover{ text-decoration-thickness: 2px }
 
-  /* ——— Collapsibles ——— */
-  details{ margin: 18px 0 8px; }
-  summary{
-    list-style:none; cursor:pointer; outline:none;
-    font-weight:700; display:inline-flex; align-items:center; gap:.5rem;
+  /* ——— Blog list ——— */
+  .post-list{ list-style:none; padding:0; margin:24px 0 }
+  .post-item{ 
+    padding: 16px; 
+    margin: 12px 0;
+    background: var(--card);
+    border-radius: 4px;
+    transition: background .15s ease;
   }
-  summary::-webkit-details-marker{ display:none }
-  /* caret */
-  summary::before{
-    content:"▾"; width:1ch; display:inline-block; color:var(--caret);
-    transform: translateY(-1px) rotate(0deg); transition: transform .15s ease;
-  }
-  details:not([open]) summary::before{ content:"▸"; transform: translateY(-1px); }
-  /* bracketed label look */
-  summary .label{ font-weight:700 }
-  .block{ padding: 8px 0 0 18px; }
-  .block p{ margin: 10px 0 }
-  .block ul{ margin: 8px 0 8px 18px }
+  .post-item:hover{ opacity: .85 }
+  .post-title{ font-weight:700; margin:0 0 4px; font-size: 16px; }
+  .post-meta{ font-size:14px; color:var(--muted); margin:0 }
+  .post-link{ text-decoration:none; display:block }
 
-  /* ——— Social footer ——— */
   .social{
     position: fixed; left: 24px; bottom: 28px; right: 24px;
     display:flex; gap:18px; align-items:center; color:var(--muted);
@@ -79,47 +73,17 @@
   <div class="wrap">
     <div class="row">
       <div>
-        <p class="name">McClain Thiel</p>
+        <p class="name">Blog</p>
         <p class="lead">
-          Researcher and Engineer
+          <a href="index.html">← Back to home</a>
         </p>
       </div>
       <button id="themeBtn" class="theme" aria-label="Toggle theme" title="Toggle theme">☼</button>
     </div>
 
-    <details open>
-      <summary><span class="label">[About]</span></summary>
-      <div class="block">
-        <p>I'm a researcher and engineer interested in ML, RL and biology currently doing a PhD at UCL under the supervision of <a href="https://ucl-cssb.github.io/">Chris Barnes</a> and and also an <a href="https://encode.pillar.vc/">Encode: AI for Science PhD fellow</a> supported by Pillar VC and Aria.  </a></p>
-        <p>I also consult. I work on ML, RL and Databricks projects for clients.</p>
-        <p>I grew up in San Diego, CA and now live in London. </p>
-      </div>
-    </details>
-
-    <details>
-      <summary><span class="label">[Previously]</span></summary>
-      <div class="block">
-          <li>Founder @ WEALTHAWK — Acquired by Praxis Solutions. AI powered prospect development for wealth managers.</li>
-          <li>Sr. Machine Learning Engineer @ Snorkel.ai — one sentence on impact.</li>
-          <li>Machine Learning Scientist @ Tempus AI — one sentence on impact.</li>
-          <li>B.A. in Data Science @ UC Berkeley - minor in BioEngineering</li>
-
-      </div>
-    </details>
-
-    <details open>
-      <summary><span class="label">[Interests]</span></summary>
-      <div class="block">
-        <p>I love basketball, padel and travel. I spend a lot of time in the start up space and am interested in AI for science.</p>
-      </div>
-    </details>
-
-    <details open>
-      <summary><span class="label">[Contact]</span></summary>
-      <div class="block">
-        <p>me [at] mcclainthiel [dot] com</p>
-      </div>
-    </details>
+    <ul id="postList" class="post-list">
+      <li style="color:var(--muted)">Loading posts...</li>
+    </ul>
 
     <hr class="rule" />
   </div>
@@ -148,6 +112,36 @@
     localStorage.setItem(KEY, next);
     updateIcon();
   });
+
+  // Load blog posts
+  async function loadPosts() {
+    try {
+      const response = await fetch('blog/posts.json');
+      const posts = await response.json();
+      
+      const postList = document.getElementById('postList');
+      
+      if (posts.length === 0) {
+        postList.innerHTML = '<li style="color:var(--muted)">No posts yet.</li>';
+        return;
+      }
+      
+      postList.innerHTML = posts.map(post => `
+        <li class="post-item">
+          <a href="post.html?id=${post.id}" class="post-link">
+            <p class="post-title">${post.title}</p>
+            <p class="post-meta">${post.date}</p>
+          </a>
+        </li>
+      `).join('');
+    } catch (err) {
+      document.getElementById('postList').innerHTML = 
+        '<li style="color:var(--muted)">No posts yet. Create blog/posts.json to add posts.</li>';
+    }
+  }
+
+  loadPosts();
 </script>
 </body>
 </html>
+
