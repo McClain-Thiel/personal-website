@@ -4,6 +4,12 @@
     "title": "My First Blog Post",
     "date": "October 28, 2025",
     "file": "first-post.md"
+  },
+  {
+    "id": "evaluating-agents",
+    "title": "Evaluating Agents",
+    "date":"October 28, 2025",
+    "file": "evaluating-agents.md"
   }
 ]
 
