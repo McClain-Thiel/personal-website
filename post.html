@@ -1,177 +1,81 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Post — McClain Thiel</title>
-<meta name="description" content="Blog post by McClain Thiel" />
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-
-<style>
-  :root {
-    --bg: #fafaf8; --fg: #1a1a1a; --muted: #5a5a5a;
-    --accent: #2d5016; --link: #2d5016;
-    --card: #f0f0ec; --card-border: #e0dfd8; --rule: #d4d3cc;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0f0f0e; --fg: #e8e8e4; --muted: #9a9a94;
-      --accent: #7ab85e; --link: #7ab85e;
-      --card: #1a1a18; --card-border: #2a2a26; --rule: #2a2a26;
-    }
-  }
-  [data-theme="light"] {
-    --bg: #fafaf8; --fg: #1a1a1a; --muted: #5a5a5a;
-    --accent: #2d5016; --link: #2d5016;
-    --card: #f0f0ec; --card-border: #e0dfd8; --rule: #d4d3cc;
-  }
-  [data-theme="dark"] {
-    --bg: #0f0f0e; --fg: #e8e8e4; --muted: #9a9a94;
-    --accent: #7ab85e; --link: #7ab85e;
-    --card: #1a1a18; --card-border: #2a2a26; --rule: #2a2a26;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body { height: 100%; }
-  body {
-    margin: 0; background: var(--bg); color: var(--fg);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 16px; line-height: 1.65; letter-spacing: -0.01em;
-    -webkit-font-smoothing: antialiased;
-  }
-  h1, h2, h3 { font-family: 'Source Serif 4', 'Georgia', serif; font-weight: 700; letter-spacing: -0.02em; }
-
-  .wrap { max-width: 720px; padding: 64px 24px 120px; margin: 0 auto; }
-
-  a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-  a:hover { text-decoration-thickness: 2px; }
-
-  .nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
-  .nav-links { display: flex; gap: 24px; align-items: center; font-size: 14px; }
-  .nav-links a { color: var(--muted); text-decoration: none; }
-  .nav-links a:hover { color: var(--fg); }
-  .nav-name { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 18px; color: var(--fg); text-decoration: none; }
-  .nav-name:hover { text-decoration: none; }
-
-  .post-header { margin-bottom: 32px; }
-  .post-header h1 { font-size: 28px; margin: 0 0 8px; line-height: 1.3; }
-  .post-meta { color: var(--muted); margin: 0; font-size: 14px; }
-
-  .content { line-height: 1.7; }
-  .content h1 { font-size: 22px; margin: 32px 0 16px; }
-  .content h2 { font-size: 18px; margin: 28px 0 12px; }
-  .content h3 { font-size: 16px; margin: 24px 0 12px; }
-  .content p { margin: 16px 0; }
-  .content ul, .content ol { margin: 16px 0; padding-left: 24px; }
-  .content li { margin: 8px 0; }
-  .content code {
-    background: var(--card); padding: 2px 6px;
-    border-radius: 3px; font-size: 14px;
-    font-family: 'SF Mono', 'Fira Code', monospace;
-  }
-  .content pre {
-    background: var(--card); padding: 16px;
-    border-radius: 6px; overflow-x: auto; margin: 16px 0;
-    border: 1px solid var(--card-border);
-  }
-  .content pre code { background: none; padding: 0; }
-  .content blockquote {
-    border-left: 3px solid var(--accent); margin: 16px 0;
-    padding-left: 16px; color: var(--muted);
-  }
-  .content img { max-width: 100%; height: auto; margin: 16px 0; border-radius: 4px; }
-
-  .footer { border-top: 1px solid var(--rule); padding-top: 24px; margin-top: 3rem; display: flex; gap: 24px; font-size: 14px; color: var(--muted); }
-  .footer a { color: var(--muted); }
-  .footer a:hover { color: var(--fg); }
-
-  .theme-btn { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 16px; line-height: 1; padding: 6px; border-radius: 8px; }
-  .theme-btn:hover { color: var(--fg); }
-  .theme-btn:focus-visible { outline: 2px solid var(--rule); outline-offset: 2px; }
-
-  @media (max-width: 600px) {
-    .wrap { padding: 40px 18px 100px; }
-    .post-header h1 { font-size: 24px; }
-    .nav-links { gap: 16px; }
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Writing — McClain Thiel</title>
+  <meta name="description" content="A note by McClain Thiel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=5" />
 </head>
 <body>
-  <div class="wrap">
-    <nav class="nav">
-      <a href="/" class="nav-name">McClain Thiel</a>
-      <div class="nav-links">
-        <a href="blog.html">Blog</a>
-        <a href="index.html">Home</a>
-        <button id="themeBtn" class="theme-btn" aria-label="Toggle theme" title="Toggle theme">&#9788;</button>
-      </div>
-    </nav>
-
-    <article>
-      <div class="post-header">
-        <h1 id="postTitle">Loading...</h1>
-        <p class="post-meta" id="postDate"></p>
-      </div>
-      <div class="content" id="postContent">
-        <p style="color:var(--muted)">Loading post...</p>
-      </div>
-    </article>
-
-    <div class="footer">
-      <a href="blog.html">&larr; All posts</a>
-      <a href="/">Home</a>
-      <a href="https://www.linkedin.com/in/mcclain-thiel/" target="_blank" rel="noreferrer">LinkedIn</a>
-      <a href="https://github.com/McClain-Thiel" target="_blank" rel="noreferrer">GitHub</a>
-    </div>
+  <div class="shell">
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-label="McClain Thiel, home">M·T</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="blog.html">All writing</a>
+        <a class="optional" href="index.html#publications">Publications</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">●</button>
+      </nav>
+    </header>
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/marked.min.js"></script>
-<script>
-  const root = document.documentElement;
-  const btn = document.getElementById('themeBtn');
-  const KEY = 'pref-theme';
-  const saved = localStorage.getItem(KEY);
-  if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
-  const updateIcon = () => { btn.textContent = (root.getAttribute('data-theme') === 'dark') ? '\u25D0' : '\u263C'; };
-  updateIcon();
-  btn.addEventListener('click', () => {
-    const cur = root.getAttribute('data-theme');
-    const next = cur === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    localStorage.setItem(KEY, next);
-    updateIcon();
-  });
+  <main class="post-page">
+    <article>
+      <header class="post-header">
+        <span class="section-kicker">A note by McClain Thiel</span>
+        <h1 id="postTitle">Loading…</h1>
+        <p class="post-meta" id="postDate"></p>
+      </header>
+      <div class="post-content" id="postContent" aria-live="polite">
+        <p>Loading note…</p>
+      </div>
+    </article>
+    <footer class="post-footer">
+      <a class="more-link" href="blog.html">← Back to all writing</a>
+    </footer>
+  </main>
 
-  async function loadPost() {
-    const params = new URLSearchParams(window.location.search);
-    const postId = params.get('id');
-    if (!postId) {
-      document.getElementById('postTitle').textContent = 'Post not found';
-      document.getElementById('postContent').innerHTML = '<p style="color:var(--muted)">No post ID provided.</p>';
-      return;
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/marked.min.js"></script>
+  <script src="site.js"></script>
+  <script>
+    async function loadPost() {
+      const title = document.getElementById("postTitle");
+      const date = document.getElementById("postDate");
+      const content = document.getElementById("postContent");
+      const postId = new URLSearchParams(window.location.search).get("id");
+
+      if (!postId) {
+        title.textContent = "Note not found";
+        content.innerHTML = "<p>No note was selected.</p>";
+        return;
+      }
+
+      try {
+        const postsResponse = await fetch("blog/posts.json");
+        if (!postsResponse.ok) throw new Error("Could not load post index");
+        const posts = await postsResponse.json();
+        const post = posts.find((item) => item.id === postId);
+        if (!post) throw new Error("Post not found");
+
+        const markdownResponse = await fetch(`blog/${post.file}`);
+        if (!markdownResponse.ok) throw new Error("Could not load note");
+        const markdown = await markdownResponse.text();
+
+        title.textContent = post.title;
+        date.textContent = post.date;
+        content.innerHTML = marked.parse(markdown);
+        document.title = `${post.title} — McClain Thiel`;
+      } catch {
+        title.textContent = "Note not found";
+        date.textContent = "";
+        content.innerHTML = "<p>This note could not be loaded.</p>";
+      }
     }
-    try {
-      const response = await fetch('blog/posts.json');
-      const posts = await response.json();
-      const post = posts.find(p => p.id === postId);
-      if (!post) throw new Error('Post not found');
-      document.getElementById('postTitle').textContent = post.title;
-      document.getElementById('postDate').textContent = post.date;
-      document.title = `${post.title} — McClain Thiel`;
-      const mdResponse = await fetch(`blog/${post.file}`);
-      const markdown = await mdResponse.text();
-      document.getElementById('postContent').innerHTML = marked.parse(markdown);
-    } catch (err) {
-      document.getElementById('postTitle').textContent = 'Post not found';
-      document.getElementById('postContent').innerHTML =
-        '<p style="color:var(--muted)">Could not load post.</p>';
-    }
-  }
-  loadPost();
-</script>
+
+    loadPost();
+  </script>
 </body>
 </html>
