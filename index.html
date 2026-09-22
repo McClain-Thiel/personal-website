@@ -3,33 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>McClain Thiel — AI Researcher & Machine Learning Engineer</title>
-  <meta name="description" content="McClain Thiel is an AI researcher and machine learning engineer working across generative AI, agentic systems, evaluation, and AI for science." />
-  <meta property="og:title" content="McClain Thiel — AI Researcher & Machine Learning Engineer" />
-  <meta property="og:description" content="Production AI systems, post-training, evaluation, and research in generative models for biology." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mcclainthiel.com" />
-  <meta property="og:image" content="https://mcclainthiel.com/og-image.svg" />
-  <meta name="twitter:card" content="summary_large_image" />
+  $metadata
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="/styles.css?v=6" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="shell">
     <header class="site-header">
       <a class="wordmark" href="/" aria-label="McClain Thiel, home">M·T</a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#experience">Experience</a>
-        <a href="#publications">Publications</a>
+        <a class="optional" href="#publications">Publications</a>
         <a class="optional" href="#talks">Talks</a>
         <a class="optional" href="#contact">Contact</a>
+        <a href="/blog/">Writing</a>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">●</button>
       </nav>
     </header>
 
-    <main>
+    <main id="main">
       <section class="hero hero-professional" aria-labelledby="intro-title">
         <div>
           <p class="eyebrow">AI researcher · Machine learning engineer</p>
@@ -240,7 +235,7 @@
               </a>
             </li>
           </ul>
-          <a class="more-link" href="blog.html">More notes →</a>
+          <a class="more-link" href="/blog/">More writing →</a>
         </div>
       </section>
 
@@ -260,7 +255,7 @@
     </main>
 
     <footer class="site-footer">
-      <span>© <span data-year></span> McClain Thiel · London</span>
+      <span>© <span data-year>$year</span> McClain Thiel · London</span>
       <div class="footer-links">
         <a href="mailto:mcclain.thiel@gmail.com">Email</a>
         <a href="https://scholar.google.com/citations?hl=en&user=wgbzrtIAAAAJ" target="_blank" rel="noreferrer">Scholar</a>

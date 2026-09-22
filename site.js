@@ -10,6 +10,11 @@ const preferredTheme = () => {
 
 const setTheme = (theme) => {
   root.setAttribute("data-theme", theme);
+  root.classList.toggle("dark", theme === "dark");
+  if (document.body.classList.contains("writing-page")) {
+    // The pinned marimo runtime observes this attribute to update widget themes.
+    document.body.dataset.vscodeThemeKind = `vscode-${theme}`;
+  }
   if (themeButton) {
     themeButton.textContent = theme === "dark" ? "○" : "●";
     themeButton.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} theme`);

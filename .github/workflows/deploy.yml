@@ -1,34 +1,51 @@
-name: Deploy to GitHub Pages
+name: Build and deploy website
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Prepare static site
-        run: |
-          mkdir _site
-          cp index.html blog.html post.html styles.css site.js og-image.svg CNAME _site/
-          cp -R blog _site/blog
-          touch _site/.nojekyll
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: astral-sh/setup-uv@v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
-          cname: mcclainthiel.com
+          enable-cache: true
+      - name: Install build dependencies
+        run: uv sync --frozen --python 3.13
+      - name: Test the publishing pipeline
+        run: uv run --frozen python -m unittest discover -s tests -v
+      - name: Build static site
+        run: uv run --frozen python build_site.py
+      - name: Upload site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy site
+        id: deployment
+        uses: actions/deploy-pages@v4

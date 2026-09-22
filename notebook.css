@@ -1,0 +1,132 @@
+/* Both article formats share the typography and proportions of a marimo notebook. */
+.writing-page {
+  --paper: #fff;
+  --paper-deep: #f6f7f8;
+  --ink: #22252a;
+  --article-muted: #656c76;
+  --muted: var(--article-muted);
+  --line: #e3e6e9;
+  --panel: #f8f9fa;
+  --serif: "Lora", Georgia, serif;
+  --sans: "PT Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --marimo-text-font: var(--sans);
+  --marimo-heading-font: var(--sans);
+  --marimo-prose-font: var(--serif);
+  --marimo-monospace-font: "Fira Mono", monospace;
+  background: var(--paper);
+  color-scheme: light;
+}
+
+[data-theme="dark"] .writing-page {
+  --paper: #16181d;
+  --paper-deep: #202329;
+  --ink: #e7e9ee;
+  --article-muted: #a9afb9;
+  --muted: var(--article-muted);
+  --line: #353a44;
+  --panel: #202329;
+  color-scheme: dark;
+}
+
+.writing-page::before { display: none; }
+.writing-page .shell { width: min(920px, calc(100% - 48px)); }
+.writing-page .site-header { min-height: 88px; }
+.writing-page .wordmark { font-family: var(--serif); font-size: 24px; }
+.writing-page .post-page,
+.writing-index main,
+.writing-index .site-footer { width: min(740px, calc(100% - 48px)); margin-inline: auto; }
+.writing-index main,
+.writing-index .site-footer { width: min(740px, 100%); }
+.writing-page .post-header { padding: 52px 0 28px; }
+.writing-page .page-header { min-height: 0; padding: 64px 0 40px; }
+.writing-page .post-header h1,
+.writing-page .page-header h1 {
+  margin: 20px 0 16px;
+  font-family: var(--sans);
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+.writing-page .post-description,
+.writing-page .page-header > p {
+  margin: 0 0 20px;
+  max-width: 680px;
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+.writing-page .post-topics { margin-top: 24px; }
+.writing-page .post-meta,
+.writing-page .blog-byline { font-size: 0.875rem; line-height: 1.65; }
+.writing-page .post-content { padding: 28px 0 48px; font-family: var(--serif); font-size: 1rem; line-height: 1.8; }
+.writing-page .post-content > * { max-width: 100%; }
+.writing-page .post-content :is(h2, h3, h4) {
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  margin: 1.8em 0 0.75em;
+}
+.writing-page .post-content h2 { font-size: 1.6rem; }
+.writing-page .post-content h3 { font-size: 1.25rem; }
+.writing-page .post-content :is(p, .paragraph) { display: block; margin: 1.1em 0; line-height: 1.8; }
+.writing-page .post-content a { color: var(--accent); }
+.writing-page .post-content blockquote { font-size: 1rem; line-height: 1.8; }
+.writing-page .post-content code { font-family: var(--marimo-monospace-font); }
+.writing-page .post-content pre { border-radius: 5px; padding: 18px 20px; font-size: 0.875rem; line-height: 1.6; }
+.writing-page .post-toc { margin-top: 24px; padding: 4px 0 4px 20px; background: none; font-family: var(--sans); }
+.writing-page .post-toc ul { margin: 8px 0; }
+.writing-page .post-item { padding: 24px 0; }
+.writing-page .post-title { font: 700 1.3rem/1.35 var(--sans); }
+.writing-page .writing-description { font: 400 1rem/1.6 var(--sans); }
+.writing-page :is(.author-note, .post-references, .related-posts, .blog-empty) h2 { font: 700 1.2rem/1.4 var(--sans); }
+.writing-page .author-note { padding: 24px 0 32px; }
+.writing-page .blog-empty { padding: 32px 0 64px; }
+.writing-page .post-footer { padding-bottom: 48px; }
+
+.notebook-controls {
+  margin-top: 24px;
+  padding: 16px 0;
+  border-block: 1px solid var(--line);
+  font: 400 0.875rem/1.6 var(--sans);
+  color: var(--muted);
+}
+.notebook-controls p { margin: 0 0 10px; }
+.notebook-controls button {
+  margin: 0 16px 4px 0;
+  padding: 7px 12px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--panel);
+  cursor: pointer;
+  font: 700 0.875rem/1.5 var(--sans);
+}
+.notebook-controls button:hover { border-color: var(--accent); }
+.notebook-controls button:disabled { cursor: wait; opacity: 0.65; }
+marimo-island { display: block; margin-block: 8px; }
+.writing-page marimo-island { background: transparent; }
+.writing-page [data-article-title] h1 { display: none; }
+marimo-cell-code[hidden], [hidden] { display: none !important; }
+.writing-page marimo-island .markdown { color: var(--ink); font-family: var(--serif); font-size: 1rem; }
+.writing-page marimo-island .markdown :is(strong, em) { color: inherit; }
+
+/* marimo copies same-origin styles into widget shadow roots. */
+:host .marimo {
+  --foreground: var(--ink);
+  --background: var(--paper);
+  --muted-foreground: var(--article-muted);
+  color: var(--ink);
+  color-scheme: inherit;
+}
+:host .marimo .markdown { color: var(--ink); }
+
+@media (max-width: 600px) {
+  .writing-page .shell,
+  .writing-page .post-page { width: calc(100% - 36px); }
+  .writing-page .site-header { min-height: 76px; }
+  .writing-page .post-header,
+  .writing-page .page-header { padding-top: 32px; }
+  .writing-page .post-content { padding-top: 16px; }
+}

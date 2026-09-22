@@ -14,6 +14,10 @@
 
 # production
 /build
+/_site/
+/.venv/
+__pycache__/
+__marimo__/
 
 # misc
 .DS_Store

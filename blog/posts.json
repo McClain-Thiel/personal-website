@@ -2,14 +2,15 @@
   {
     "id": "first-post",
     "title": "My First Blog Post",
-    "date": "October 28, 2025",
+    "date": "2025-10-28",
+    "draft": true,
     "file": "first-post.md"
   },
   {
     "id": "evaluating-agents",
     "title": "Evaluating Agents",
-    "date":"October 28, 2025",
+    "date": "2025-10-28",
+    "draft": true,
     "file": "evaluating-agents.md"
   }
 ]
-

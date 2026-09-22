@@ -732,6 +732,123 @@ a {
   border-top: 1px solid var(--line);
 }
 
+.skip-link {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  padding: 10px 16px;
+  transform: translateY(-160%);
+  background: var(--paper);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.blog-byline,
+.breadcrumbs,
+.post-topics {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.blog-empty h2,
+.author-note h2,
+.related-posts > h2 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.blog-empty p {
+  max-width: 560px;
+  color: var(--muted);
+}
+
+.post-header h1 {
+  font-size: clamp(2.6rem, 7vw, 4.8rem);
+  overflow-wrap: anywhere;
+}
+
+.post-description {
+  margin-top: 28px;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+.post-topics {
+  margin-top: 30px;
+  color: var(--accent);
+}
+
+.post-toc {
+  margin-top: 32px;
+  padding: 18px 24px;
+  border-left: 2px solid var(--accent);
+  background: var(--panel);
+  font-size: 0.9rem;
+}
+
+.post-toc p {
+  margin: 0;
+  font-weight: 700;
+}
+
+.post-toc ul {
+  padding-left: 20px;
+}
+
+.post-content :is(h2, h3, h4) {
+  scroll-margin-top: 24px;
+}
+
+.post-content {
+  overflow-wrap: anywhere;
+}
+
+.post-content img {
+  height: auto;
+}
+
+.post-content table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+}
+
+.post-content :is(th, td) {
+  padding: 12px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.post-references {
+  margin-top: 50px;
+  border-top: 1px solid var(--line);
+}
+
+.author-note {
+  padding: 24px 0 40px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.author-note h2 {
+  color: var(--ink);
+}
+
+.related-posts {
+  padding: 20px 0 48px;
+}
+
+.post-footer .more-link + .more-link {
+  margin-left: 24px;
+}
+
 @media (max-width: 800px) {
   .hero,
   .section {

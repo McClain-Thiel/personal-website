@@ -3,77 +3,48 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Writing — McClain Thiel</title>
-  <meta name="description" content="Notes by McClain Thiel on machine learning, computational biology, research, and building." />
+  $metadata
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=6" />
+  <link rel="stylesheet" href="/notebook.css" />
+  <script src="/site.js" defer></script>
 </head>
-<body>
+<body class="writing-page writing-index">
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="shell">
     <header class="site-header">
       <a class="wordmark" href="/" aria-label="McClain Thiel, home">M·T</a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="index.html#experience">Experience</a>
-        <a class="optional" href="index.html#publications">Publications</a>
-        <a href="blog.html" aria-current="page">Writing</a>
+        <a href="/#experience">Experience</a>
+        <a class="optional" href="/#publications">Publications</a>
+        <a href="/blog/" aria-current="page">Writing</a>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">●</button>
       </nav>
     </header>
 
-    <main>
+    <main id="main">
       <header class="page-header">
-        <span class="section-kicker">Ideas in progress</span>
-        <h1>Notes &amp; observations.</h1>
-        <p>Occasional writing on machine learning, computational biology, research, and the process of building useful things.</p>
+        <span class="section-kicker">Research &amp; practice</span>
+        <h1>Writing on AI &amp; biology.</h1>
+        <p>Research explainers and practical notes on machine learning, DNA language models, reinforcement learning, and AI for science.</p>
+        <p class="blog-byline">By <a href="/" rel="author">McClain Thiel</a> · <a href="/feed.xml">Subscribe via RSS</a></p>
       </header>
 
-      <section class="blog-main" aria-label="All posts">
-        <ul id="postList" class="post-list" aria-live="polite">
-          <li class="post-item"><p>Loading notes…</p></li>
-        </ul>
+      <section class="blog-main" aria-label="Articles">
+        $posts
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>© <span data-year></span> McClain Thiel</span>
+      <span>© <span data-year>$year</span> McClain Thiel</span>
       <div class="footer-links">
         <a href="/">Home</a>
-        <a href="https://www.linkedin.com/in/mcclain-thiel/" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a href="https://github.com/McClain-Thiel" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="/feed.xml">RSS</a>
+        <a href="https://scholar.google.com/citations?hl=en&amp;user=wgbzrtIAAAAJ">Google Scholar</a>
       </div>
     </footer>
   </div>
-
-  <script src="site.js"></script>
-  <script>
-    async function loadPosts() {
-      const postList = document.getElementById("postList");
-      try {
-        const response = await fetch("blog/posts.json");
-        if (!response.ok) throw new Error("Could not load posts");
-        const posts = await response.json();
-
-        if (!posts.length) {
-          postList.innerHTML = "<li class=\"post-item\"><p>No notes yet.</p></li>";
-          return;
-        }
-
-        postList.innerHTML = posts.map((post) => `
-          <li class="post-item">
-            <a href="post.html?id=${encodeURIComponent(post.id)}">
-              <p class="post-title">${post.title}</p>
-              <span class="post-date">${post.date}</span>
-            </a>
-          </li>
-        `).join("");
-      } catch {
-        postList.innerHTML = "<li class=\"post-item\"><p>Notes could not be loaded.</p></li>";
-      }
-    }
-
-    loadPosts();
-  </script>
 </body>
 </html>

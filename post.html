@@ -3,79 +3,57 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Writing — McClain Thiel</title>
-  <meta name="description" content="A note by McClain Thiel." />
+  $metadata
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  $notebook_head
+  <link rel="stylesheet" href="/styles.css?v=6" />
+  <link rel="stylesheet" href="/notebook.css" />
+  <script src="/site.js" defer></script>
 </head>
-<body>
+<body class="writing-page">
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="shell">
     <header class="site-header">
       <a class="wordmark" href="/" aria-label="McClain Thiel, home">M·T</a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="blog.html">All writing</a>
-        <a class="optional" href="index.html#publications">Publications</a>
+        <a href="/blog/">Writing</a>
+        <a class="optional" href="/#publications">Publications</a>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">●</button>
       </nav>
     </header>
   </div>
 
-  <main class="post-page">
+  <main class="post-page" id="main">
     <article>
       <header class="post-header">
-        <span class="section-kicker">A note by McClain Thiel</span>
-        <h1 id="postTitle">Loading…</h1>
-        <p class="post-meta" id="postDate"></p>
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Writing</a></nav>
+        $tags
+        <h1>$title</h1>
+        <p class="post-description">$description</p>
+        <p class="post-meta">By <a href="/" rel="author">McClain Thiel</a><br />
+          Published <time datetime="$published">$date</time>$updated · $minutes min read
+        </p>
       </header>
-      <div class="post-content" id="postContent" aria-live="polite">
-        <p>Loading note…</p>
+      $toc
+      $notebook_controls
+      <div class="post-content">
+        $content
+        $references
       </div>
+      <aside class="author-note" aria-label="About the author">
+        <h2>About the author</h2>
+        <p><a href="/" rel="author">McClain Thiel</a> is an AI researcher and machine learning engineer, and a PhD student in the <a href="https://ucl-cssb.github.io/">Barnes Lab at UCL</a>, researching generative models and post-training for biological sequence design.</p>
+        <a href="/#publications">Research papers</a> · <a href="https://scholar.google.com/citations?hl=en&amp;user=wgbzrtIAAAAJ">Google Scholar</a>
+      </aside>
     </article>
+    $related
     <footer class="post-footer">
-      <a class="more-link" href="blog.html">← Back to all writing</a>
+      <a class="more-link" href="/blog/">← All writing</a>
+      <a class="more-link" href="/feed.xml">Subscribe via RSS</a>
+      <p class="post-meta">© <span data-year>$year</span> McClain Thiel</p>
     </footer>
   </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.0/marked.min.js"></script>
-  <script src="site.js"></script>
-  <script>
-    async function loadPost() {
-      const title = document.getElementById("postTitle");
-      const date = document.getElementById("postDate");
-      const content = document.getElementById("postContent");
-      const postId = new URLSearchParams(window.location.search).get("id");
-
-      if (!postId) {
-        title.textContent = "Note not found";
-        content.innerHTML = "<p>No note was selected.</p>";
-        return;
-      }
-
-      try {
-        const postsResponse = await fetch("blog/posts.json");
-        if (!postsResponse.ok) throw new Error("Could not load post index");
-        const posts = await postsResponse.json();
-        const post = posts.find((item) => item.id === postId);
-        if (!post) throw new Error("Post not found");
-
-        const markdownResponse = await fetch(`blog/${post.file}`);
-        if (!markdownResponse.ok) throw new Error("Could not load note");
-        const markdown = await markdownResponse.text();
-
-        title.textContent = post.title;
-        date.textContent = post.date;
-        content.innerHTML = marked.parse(markdown);
-        document.title = `${post.title} — McClain Thiel`;
-      } catch {
-        title.textContent = "Note not found";
-        date.textContent = "";
-        content.innerHTML = "<p>This note could not be loaded.</p>";
-      }
-    }
-
-    loadPost();
-  </script>
 </body>
 </html>
