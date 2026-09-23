@@ -297,7 +297,7 @@ class BuildTests(unittest.TestCase):
         self.build()
         text = (self.output / "blog/new-article/index.html").read_text()
         self.assertIn("A readable result.", text)
-        self.assertIn('href="/notebook.css"', text)
+        self.assertIn("/notebook.css", [urlparse(link).path for link in Page(text).links])
         self.assertNotIn('src="/notebook.js"', text)
         self.assertIn("new-article", (self.output / "sitemap.xml").read_text())
 

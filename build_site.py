@@ -538,7 +538,7 @@ def metadata(
                     {
                         "@type": "ListItem",
                         "position": 2,
-                        "name": "Writing",
+                        "name": "Blog",
                         "item": SITE_URL + "/blog/",
                     },
                     {
@@ -777,8 +777,8 @@ def build(source: Path, output: Path, today: date) -> int:
         "index.html",
         Template((source / "index.html").read_text()).substitute(
             metadata=metadata(
-                "AI Researcher & Machine Learning Engineer",
-                "McClain Thiel is an AI researcher and machine learning engineer working across generative AI, agentic systems, evaluation, and AI for science.",
+                "Machine Learning Researcher & Scientist",
+                "McClain Thiel is a machine learning researcher and scientist interested in biology, research and medicine, a PhD student in the Barnes Lab, and a consultant at Databricks.",
                 "/",
             ),
             year=today.year,

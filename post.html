@@ -8,8 +8,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
   $notebook_head
-  <link rel="stylesheet" href="/styles.css?v=6" />
-  <link rel="stylesheet" href="/notebook.css" />
+  <link rel="stylesheet" href="/styles.css?v=8" />
+  <!-- Share marimo's stylesheet title so versioned CSS reaches widget shadow roots. -->
+  <link rel="stylesheet" href="/notebook.css?v=3" title="marimo-islands" />
   <script src="/site.js" defer></script>
 </head>
 <body class="writing-page">
@@ -18,8 +19,8 @@
     <header class="site-header">
       <a class="wordmark" href="/" aria-label="McClain Thiel, home">M·T</a>
       <nav class="nav" aria-label="Main navigation">
-        <a href="/blog/">Writing</a>
-        <a class="optional" href="/#publications">Publications</a>
+        <a href="/">Home</a>
+        <a href="/blog/" aria-current="location">Blog</a>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">●</button>
       </nav>
     </header>
@@ -28,7 +29,7 @@
   <main class="post-page" id="main">
     <article>
       <header class="post-header">
-        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Writing</a></nav>
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a></nav>
         $tags
         <h1>$title</h1>
         <p class="post-description">$description</p>
@@ -50,7 +51,7 @@
     </article>
     $related
     <footer class="post-footer">
-      <a class="more-link" href="/blog/">← All writing</a>
+      <a class="more-link" href="/blog/">← Back to blog</a>
       <a class="more-link" href="/feed.xml">Subscribe via RSS</a>
       <p class="post-meta">© <span data-year>$year</span> McClain Thiel</p>
     </footer>
