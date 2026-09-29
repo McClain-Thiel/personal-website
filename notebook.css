@@ -84,6 +84,14 @@
 .notebook-controls button:hover { border-color: var(--accent); }
 .notebook-controls button:disabled { cursor: wait; opacity: 0.65; }
 marimo-island { display: block; margin-block: 8px; }
+.notebook-diagram { margin-block: 24px; overflow-x: auto; }
+.notebook-diagram svg { display: block; height: auto; margin-inline: auto; }
+[data-display-math="true"] { display: block; overflow-x: auto; }
+.writing-page .notebook-saved-table { max-height: 480px; overflow: auto; }
+.notebook-table-note { display: block; color: var(--muted); font-size: 0.875rem; }
+.notebook-saved-value { font-family: var(--sans); margin-block: 20px; }
+.notebook-saved-value dt { color: var(--muted); font-size: 0.875rem; }
+.notebook-saved-value dd { margin: 4px 0 0; }
 .writing-page marimo-island { background: transparent; }
 .writing-page [data-article-title] h1 { display: none; }
 marimo-cell-code[hidden], [hidden] { display: none !important; }

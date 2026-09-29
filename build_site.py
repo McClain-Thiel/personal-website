@@ -205,6 +205,112 @@ def article_archive(slug: str, entry: Path, assets: dict[str, bytes]) -> bytes:
     return buffer.getvalue()
 
 
+def render_saved_outputs(soup: BeautifulSoup) -> None:
+    """Make saved displays readable without initializing the Python runtime."""
+    for node in soup.select("marimo-tex"):
+        text = node.get_text().strip()
+        display = text.startswith("||[") and text.endswith("||]")
+        if not display and not (text.startswith("||(") and text.endswith("||)")):
+            raise ValueError(f"Unrecognized marimo math delimiters: {text!r}")
+        replacement = soup.new_tag("span")
+        replacement["data-notebook-math"] = text[3:-3].strip()
+        replacement["data-display-math"] = str(display).lower()
+        replacement.string = text[3:-3].strip()
+        node.replace_with(replacement)
+
+    for node in soup.select("marimo-mermaid"):
+        replacement = soup.new_tag("div", attrs={"class": "notebook-diagram"})
+        replacement["data-notebook-diagram"] = json.loads(node["data-diagram"])
+        replacement.string = "Loading diagram…"
+        node.replace_with(replacement)
+
+    for node in soup.select("marimo-table"):
+        rows = json.loads(node["data-data"])
+        if isinstance(rows, str):
+            try:
+                rows = json.loads(rows)
+            except json.JSONDecodeError as error:
+                raise ValueError(
+                    "Saved notebook tables require inline JSON data"
+                ) from error
+        if not isinstance(rows, list) or any(
+            not isinstance(row, dict) for row in rows
+        ):
+            raise ValueError("Saved notebook tables require a list of row objects")
+        hidden = json.loads(node.get("data-hidden-columns", "[]"))
+        columns = [key for row in rows for key in row if key not in hidden]
+        columns = list(dict.fromkeys(columns))
+        table = soup.new_tag("table", attrs={"class": "notebook-saved-table"})
+        label = json.loads(node.get("data-label", "null"))
+        total = json.loads(node.get("data-total-rows", str(len(rows))))
+        partial = total == "too_many" or total > len(rows)
+        if label or partial:
+            caption = soup.new_tag("caption")
+            if label:
+                caption.append(BeautifulSoup(label, "html.parser"))
+            if partial:
+                note = soup.new_tag("span", attrs={"class": "notebook-table-note"})
+                count = (
+                    f"{len(rows)} of {total}"
+                    if isinstance(total, int)
+                    else str(len(rows))
+                )
+                note.string = (
+                    f"Showing {count} saved rows. "
+                    "Enable interactivity to explore all rows."
+                )
+                caption.append(note)
+            table.append(caption)
+        head = soup.new_tag("thead")
+        header = soup.new_tag("tr")
+        for column in columns:
+            cell = soup.new_tag("th", scope="col")
+            cell.string = column
+            header.append(cell)
+        head.append(header)
+        table.append(head)
+        body = soup.new_tag("tbody")
+        for row in rows:
+            entry = soup.new_tag("tr")
+            for column in columns:
+                cell = soup.new_tag("td")
+                value = row.get(column)
+                cell.string = "" if value is None else str(value)
+                entry.append(cell)
+            body.append(entry)
+        table.append(body)
+        node.replace_with(table)
+
+    for node in soup.select("marimo-json-output"):
+        replacement = soup.new_tag("pre")
+        replacement.string = json.dumps(
+            json.loads(node["data-json-data"]), indent=2, ensure_ascii=False
+        )
+        node.replace_with(replacement)
+
+    for node in soup.select("marimo-stat, marimo-slider, marimo-multiselect"):
+        replacement = soup.new_tag("dl", attrs={"class": "notebook-saved-value"})
+        label = soup.new_tag("dt")
+        label.append(
+            BeautifulSoup(json.loads(node.get("data-label", '""')) or "", "html.parser")
+        )
+        value = json.loads(
+            node["data-value" if node.name == "marimo-stat" else "data-initial-value"]
+        )
+        result = soup.new_tag("dd")
+        result.string = (
+            ", ".join(map(str, value)) if isinstance(value, list) else str(value)
+        )
+        if result.string == "":
+            result.string = "None selected"
+        replacement.extend([label, result])
+        node.replace_with(replacement)
+
+    # Python recreates its UI elements when readers enable interactivity.
+    for node in soup.select("marimo-ui-element"):
+        node.unwrap()
+
+
 def render_notebook(
     path: Path, dependencies: list[str], assets: dict[str, bytes], slug: str
 ) -> str:
@@ -265,6 +371,7 @@ def render_notebook(
             node.replace_with(
                 BeautifulSoup(f"<pre>{escape(str(data))}</pre>", "html.parser")
             )
+    render_saved_outputs(soup)
     return (
         str(soup)
         + f'<script id="notebook-runtime" type="application/json" data-runtime="https://cdn.jsdelivr.net/npm/@marimo-team/islands@{marimo.__version__}/dist/main.js">{json_script(rendered)}</script>'
@@ -610,13 +717,13 @@ def render_post(source: Path, post: Post, posts: list[Post], year: int) -> str:
         notebook_head=(
             f'<link rel="stylesheet" title="marimo-islands" crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/@marimo-team/islands@{marimo.__version__}/dist/style.css">'
             '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">'
-            '<script type="module" src="/notebook.js"></script>'
+            '<script type="module" src="/notebook.js?v=2"></script>'
             if post.notebook_source
             else ""
         ),
         notebook_controls=(
             '<div class="notebook-controls">'
-            '<p id="notebook-status" role="status">Explore this article with interactive controls.</p>'
+            '<p id="notebook-status" role="status">Saved results are shown below. Enable interactivity to change the inputs.</p>'
             '<button type="button" id="notebook-start" hidden>Enable interactivity</button>'
             + (bundle_link or '<a href="source.py" download>Download notebook</a>')
             + "<noscript><p>Enable JavaScript to use the controls. You can read the saved results below.</p></noscript>"

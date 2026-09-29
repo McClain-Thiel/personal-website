@@ -336,9 +336,33 @@ class BuildTests(unittest.TestCase):
         self.assertIn("<strong>4</strong>", text)
         self.assertIn("<strong>4.12.3</strong>", text)
         self.assertIn('href="#a-small-experiment"', text)
-        self.assertIn('src="/notebook.js"', text)
+        self.assertIn('src="/notebook.js?v=2"', text)
         self.assertIn("data-runtime=", text)
-        self.assertIn("marimo-slider", text)
+        content = BeautifulSoup(text, "html.parser").select_one(".post-content")
+        self.assertFalse(content.select(
+            "marimo-tex, marimo-mermaid, marimo-table, marimo-slider, marimo-stat"
+        ))
+        self.assertIn(
+            "Showing 5 of 12 saved rows", content.select_one("table caption").get_text()
+        )
+        self.assertEqual(
+            [
+                (node["data-notebook-math"], node["data-display-math"])
+                for node in content.select("[data-notebook-math]")
+            ],
+            [("S_0", "false"), ("S' = T(S, a)", "true")],
+        )
+        self.assertIn(
+            "Saved result",
+            content.select_one("[data-notebook-diagram]")["data-notebook-diagram"],
+        )
+        self.assertEqual(content.select_one("table tbody td").get_text(), "Saved sample")
+        values = [
+            node.get_text(" ", strip=True)
+            for node in content.select(".notebook-saved-value")
+        ]
+        self.assertIn("Sample count 2", values)
+        self.assertIn("Saved count 4", values)
         self.assertIn('href="source.py"', text)
         self.assertIn(
             "app = marimo.App", (self.output / "blog/interactive/source.py").read_text()

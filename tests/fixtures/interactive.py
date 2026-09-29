@@ -23,14 +23,32 @@ def _():
 
 @app.cell
 def _(mo):
-    mo.md("""
+    mo.md(r"""
     # An interactive research note
 
     ## A small experiment
 
     This is a test of the publishing pipeline. The explanation and saved results
     appear immediately; the control below recalculates the result in your browser.
+
+    Inline math: $S_0$.
+
+    $$S' = T(S, a)$$
     """)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.vstack([
+        mo.mermaid("graph LR\n  A[Input] --> B[Saved result]"),
+        mo.ui.table(
+            [{"Item": "Saved sample", "Count": n} for n in range(12)],
+            selection=None,
+            page_size=5,
+        ),
+        mo.stat("4", label="Saved count"),
+    ])
     return
 
 
