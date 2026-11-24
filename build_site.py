@@ -38,10 +38,13 @@ AUTHOR = {
     "@type": "Person",
     "@id": f"{SITE_URL}/#person",
     "name": "McClain Thiel",
+    "alternateName": ["Anton Thiel", "Anton McClain Thiel"],
     "url": f"{SITE_URL}/",
     "sameAs": [
+        "https://orcid.org/0000-0002-5633-6115",
         "https://scholar.google.com/citations?hl=en&user=wgbzrtIAAAAJ",
         "https://github.com/McClain-Thiel",
+        "https://huggingface.co/McClain",
         "https://www.linkedin.com/in/mcclain-thiel/",
     ],
 }
