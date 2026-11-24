@@ -40,6 +40,20 @@ AUTHOR = {
     "name": "McClain Thiel",
     "alternateName": ["Anton Thiel", "Anton McClain Thiel"],
     "url": f"{SITE_URL}/",
+    "jobTitle": "Machine Learning Researcher & Scientist",
+    "affiliation": {
+        "@type": "Organization",
+        "name": "University College London",
+        "url": "https://www.ucl.ac.uk/",
+    },
+    "knowsAbout": [
+        "DNA Language Models",
+        "Reinforcement Learning",
+        "Group Relative Policy Optimization (GRPO)",
+        "Synthetic Biology",
+        "Plasmid Design",
+        "Computational Biology",
+    ],
     "sameAs": [
         "https://orcid.org/0000-0002-5633-6115",
         "https://scholar.google.com/citations?hl=en&user=wgbzrtIAAAAJ",
@@ -51,6 +65,55 @@ AUTHOR = {
         "https://www.linkedin.com/in/mcclain-thiel/",
     ],
 }
+
+PUBLICATIONS: list[dict[str, object]] = [
+    {
+        "@type": "ScholarlyArticle",
+        "@id": f"{SITE_URL}/#plasmidrl-icml-2026",
+        "name": "Effects of Structural Reward Shaping on Biophysical Properties in RL-Trained Plasmid Generators",
+        "headline": "Effects of Structural Reward Shaping on Biophysical Properties in RL-Trained Plasmid Generators",
+        "datePublished": "2026",
+        "author": [
+            {"@id": AUTHOR["@id"]},
+            {"@type": "Person", "name": "Angus G. Cunningham"},
+            {"@type": "Person", "name": "Chris P. Barnes"},
+        ],
+        "isPartOf": {
+            "@type": "PublicationVolume",
+            "name": "Proceedings of the 43rd International Conference on Machine Learning (ICML)",
+            "volumeNumber": "306",
+            "publisher": {"@type": "Organization", "name": "PMLR"},
+        },
+        "url": "https://openreview.net/forum?id=uiMxVE16m3",
+        "sameAs": [
+            "https://doi.org/10.64898/2026.03.24.713963",
+            "https://icml.cc/virtual/2026/poster/60994",
+            "https://github.com/UCL-CSSB/PlasmidRL",
+            "https://huggingface.co/UCL-CSSB/PlasmidGPT-GRPO",
+            "https://huggingface.co/datasets/UCL-CSSB/PlasmidRL-ICML",
+        ],
+    },
+    {
+        "@type": "ScholarlyArticle",
+        "@id": f"{SITE_URL}/#plasmidlm-2026",
+        "name": "PlasmidLM: A Promptable DNA Language Model via Verifiable-Reward Post-Training",
+        "headline": "PlasmidLM: A Promptable DNA Language Model via Verifiable-Reward Post-Training",
+        "datePublished": "2026-05-19",
+        "author": [
+            {"@id": AUTHOR["@id"]},
+            {"@type": "Person", "name": "Chris P. Barnes"},
+        ],
+        "isPartOf": {"@type": "Periodical", "name": "bioRxiv"},
+        "url": "https://doi.org/10.64898/2026.05.19.725242",
+        "sameAs": [
+            "https://github.com/McClain-Thiel/PlasmidLLM",
+            "https://huggingface.co/McClain/PlasmidLM-kmer6-GRPO-plannotate",
+            "https://huggingface.co/McClain/PlasmidLM-kmer6",
+            "https://huggingface.co/datasets/McClain/PlasmidLM-Eval",
+            "https://huggingface.co/spaces/McClain/PlasmidSpace",
+        ],
+    },
+]
 
 
 @dataclass
@@ -548,6 +611,7 @@ def metadata(
         f'<link rel="canonical" href="{url}" />',
         '<link rel="icon" type="image/png" sizes="96x96" href="/favicon.png" />',
         f'<link rel="alternate" type="application/rss+xml" title="McClain Thiel — Writing" href="{SITE_URL}/feed.xml" />',
+        f'<link rel="alternate" type="text/plain" title="LLMs.txt" href="{SITE_URL}/llms.txt" />',
     ]
     properties = {
         "og:type": "article" if post else "website",
@@ -626,8 +690,15 @@ def metadata(
                 for ref in post.references
             ]
     else:
+        page_type = (
+            "Blog"
+            if path == "/blog/"
+            else "ProfilePage"
+            if path == "/"
+            else "WebPage"
+        )
         page = {
-            "@type": "Blog" if path == "/blog/" else "WebPage",
+            "@type": page_type,
             "@id": url + ("#blog" if path == "/blog/" else "#webpage"),
             "url": url,
             "name": title,
@@ -636,7 +707,11 @@ def metadata(
             "author": AUTHOR,
             "isPartOf": {"@id": website["@id"]},
         }
+        if path == "/":
+            page["mainEntity"] = {"@id": AUTHOR["@id"]}
     graph = [AUTHOR, website, page]
+    if path == "/":
+        graph.extend(PUBLICATIONS)
     if post:
         graph.append(
             {
@@ -846,6 +921,140 @@ def favicon(image_format: str) -> bytes:
     return buffer.getvalue()
 
 
+def citations_bib() -> str:
+    return (
+        "@inproceedings{thiel2026plasmidrl,\n"
+        "  title     = {Effects of Structural Reward Shaping on Biophysical Properties in {RL}-Trained Plasmid Generators},\n"
+        "  author    = {Thiel, McClain and Cunningham, Angus G. and Barnes, Chris P.},\n"
+        "  booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML)},\n"
+        "  series    = {Proceedings of Machine Learning Research},\n"
+        "  volume    = {306},\n"
+        "  year      = {2026},\n"
+        "  publisher = {PMLR},\n"
+        "  url       = {https://openreview.net/forum?id=uiMxVE16m3},\n"
+        "}\n\n"
+        "@article{thiel2026plasmidlm,\n"
+        "  title   = {{PlasmidLM}: A Promptable {DNA} Language Model via Verifiable-Reward Post-Training},\n"
+        "  author  = {Thiel, McClain and Barnes, Chris P.},\n"
+        "  journal = {bioRxiv},\n"
+        "  year    = {2026},\n"
+        "  doi     = {10.64898/2026.05.19.725242},\n"
+        "  url     = {https://doi.org/10.64898/2026.05.19.725242},\n"
+        "}\n"
+    )
+
+
+def llms_txt(posts: list[Post]) -> str:
+    post_lines = (
+        [
+            f"- [{post.title}]({post.url}): {post.description} ({post.published.isoformat()})"
+            for post in posts
+        ]
+        if posts
+        else ["- Research explainers coming soon at https://mcclainthiel.com/blog/"]
+    )
+    sections = [
+        "# McClain Thiel",
+        "",
+        (
+            "> Machine learning researcher and PhD student (Barnes Lab, University College London) "
+            "working on reinforcement learning, DNA language models, and synthetic plasmid design. "
+            "Canonical author identity: McClain Thiel (also published or indexed as Anton Thiel / "
+            "Anton McClain Thiel; ORCID 0000-0002-5633-6115)."
+        ),
+        "",
+        "## Academic Identity & Profiles",
+        "",
+        f"- [Personal Website]({SITE_URL}/)",
+        "- [ORCID (0000-0002-5633-6115)](https://orcid.org/0000-0002-5633-6115)",
+        "- [Google Scholar](https://scholar.google.com/citations?hl=en&user=wgbzrtIAAAAJ)",
+        "- [Semantic Scholar](https://www.semanticscholar.org/author/McClain-Thiel/2426315736)",
+        "- [OpenAlex](https://openalex.org/authors/A5130779992)",
+        "- [OpenReview](https://openreview.net/profile?id=~McClain_Thiel1)",
+        "- [GitHub](https://github.com/McClain-Thiel)",
+        "- [Hugging Face](https://huggingface.co/McClain)",
+        f"- [Canonical BibTeX]({SITE_URL}/citations.bib)",
+        f"- [Full Markdown Context Index]({SITE_URL}/llms-full.txt)",
+        "",
+        "## Primary Research Papers, Code, Models & Benchmarks",
+        "",
+        (
+            "- [Effects of Structural Reward Shaping on Biophysical Properties in RL-Trained Plasmid Generators]"
+            "(https://openreview.net/forum?id=uiMxVE16m3): ICML 2026 (PMLR Vol. 306). Authors: McClain Thiel, "
+            "Angus G. Cunningham, Chris P. Barnes. Raises strict plasmid QC pass rate from 4.3% (PlasmidGPT base) "
+            "to 71.6% across 4,000 sequences (8 prompts x 500 samples) using GRPO while recovering unrewarded biophysical "
+            "realism. Also on [bioRxiv](https://doi.org/10.64898/2026.03.24.713963), [ICML Virtual](https://icml.cc/virtual/2026/poster/60994), "
+            "[GitHub](https://github.com/UCL-CSSB/PlasmidRL), [Hugging Face Model](https://huggingface.co/UCL-CSSB/PlasmidGPT-GRPO), "
+            "and [Hugging Face Dataset](https://huggingface.co/datasets/UCL-CSSB/PlasmidRL-ICML)."
+        ),
+        (
+            "- [PlasmidLM: A Promptable DNA Language Model via Verifiable-Reward Post-Training]"
+            "(https://doi.org/10.64898/2026.05.19.725242): bioRxiv (May 2026). Authors: McClain Thiel, Chris P. Barnes. "
+            "19.3M-parameter k-mer DNA Transformer conditioned on 106 compositional part/metadata tokens and post-trained "
+            "with specificity-aware GRPO on a BLAST-certified cluster-disjoint split (`cluster_v3`, n = 468 test clusters). "
+            "Raises single-shot useful-plasmid yield from 47.7% to 58.0% +- 0.7% (85.5% +- 0.8% Best-of-4), covered "
+            "AMRFinderPlus recall from 58.9% to 65.0% +- 0.3%, and sequence novelty to 81.1% +- 0.9%. Resources: "
+            "[GitHub](https://github.com/McClain-Thiel/PlasmidLLM), "
+            "[RL Model](https://huggingface.co/McClain/PlasmidLM-kmer6-GRPO-plannotate), "
+            "[Base Model](https://huggingface.co/McClain/PlasmidLM-kmer6), "
+            "[Benchmark Dataset](https://huggingface.co/datasets/McClain/PlasmidLM-Eval), "
+            "and [Interactive PlasmidSpace Demo](https://huggingface.co/spaces/McClain/PlasmidSpace)."
+        ),
+        "",
+        "## Writing & Explainers",
+        "",
+        *post_lines,
+        "",
+    ]
+    return "\n".join(sections)
+
+
+def llms_full_txt(posts: list[Post]) -> str:
+    parts = [
+        llms_txt(posts).rstrip(),
+        "",
+        "## Canonical BibTeX",
+        "",
+        "```bibtex",
+        citations_bib().rstrip(),
+        "```",
+    ]
+    if posts:
+        parts.extend(["", "## Published Writing (Plain Text)", ""])
+        for post in posts:
+            body = BeautifulSoup(post.html, "html.parser").get_text(
+                "\n\n", strip=True
+            )
+            parts.extend(
+                [
+                    f"### {post.title}",
+                    f"URL: {post.url} | Published: {post.published.isoformat()} | Updated: {post.modified.isoformat()}",
+                    "",
+                    body,
+                    "",
+                ]
+            )
+    return "\n".join(parts).rstrip() + "\n"
+
+
+def robots_txt() -> str:
+    ai_agents = [
+        "GPTBot",
+        "OAI-SearchBot",
+        "ChatGPT-User",
+        "ClaudeBot",
+        "Claude-SearchBot",
+        "Claude-User",
+        "PerplexityBot",
+        "Google-Extended",
+        "Applebot-Extended",
+        "Amazonbot",
+    ]
+    blocks = ["User-agent: *\nAllow: /"]
+    blocks.extend(f"User-agent: {agent}\nAllow: /" for agent in ai_agents)
+    return "\n\n".join(blocks) + f"\n\nSitemap: {SITE_URL}/sitemap.xml\n"
+
+
 def sitemap(posts: list[Post]) -> bytes:
     root = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
     for path, modified in [("/", None), ("/blog/", None)] + [
@@ -948,7 +1157,10 @@ def build(source: Path, output: Path, today: date) -> int:
     add("post.html", legacy_reader(posts))
     add("feed.xml", rss_feed(posts))
     add("sitemap.xml", sitemap(posts))
-    add("robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n")
+    add("citations.bib", citations_bib())
+    add("llms.txt", llms_txt(posts))
+    add("llms-full.txt", llms_full_txt(posts))
+    add("robots.txt", robots_txt())
     add(".nojekyll", "")
     add(
         "404.html",

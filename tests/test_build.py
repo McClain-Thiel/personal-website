@@ -521,6 +521,48 @@ class BuildTests(unittest.TestCase):
             self.build()
         self.assertFalse(self.output.exists())
 
+    def test_programmatic_seo_outputs_and_structured_data(self) -> None:
+        self.build()
+        for name in ("llms.txt", "llms-full.txt", "citations.bib", "robots.txt"):
+            self.assertTrue((self.output / name).is_file(), name)
+
+        llms = (self.output / "llms.txt").read_text(encoding="utf-8")
+        llms_full = (self.output / "llms-full.txt").read_text(encoding="utf-8")
+        bib = (self.output / "citations.bib").read_text(encoding="utf-8")
+        robots = (self.output / "robots.txt").read_text(encoding="utf-8")
+
+        for token in (
+            "0000-0002-5633-6115",
+            "Anton Thiel",
+            "uiMxVE16m3",
+            "10.64898/2026.05.19.725242",
+            f"{SITE_URL}/blog/test-article/",
+        ):
+            self.assertIn(token, llms)
+            self.assertIn(token, llms_full)
+
+        for hidden in ("private-draft", "future-article", "PRIVATE DRAFT"):
+            self.assertNotIn(hidden, llms)
+            self.assertNotIn(hidden, llms_full)
+
+        self.assertIn("thiel2026plasmidrl", bib)
+        self.assertIn("thiel2026plasmidlm", bib)
+        self.assertIn("thiel2026plasmidrl", llms_full)
+
+        home = Page((self.output / "index.html").read_text(encoding="utf-8"))
+        graph_types = {node["@type"] for node in home.structured_data[0]["@graph"]}
+        self.assertIn("ProfilePage", graph_types)
+        self.assertIn("ScholarlyArticle", graph_types)
+
+        for crawler in (
+            "GPTBot",
+            "ClaudeBot",
+            "OAI-SearchBot",
+            "PerplexityBot",
+            f"Sitemap: {SITE_URL}/sitemap.xml",
+        ):
+            self.assertIn(crawler, robots)
+
 
 if __name__ == "__main__":
     unittest.main()

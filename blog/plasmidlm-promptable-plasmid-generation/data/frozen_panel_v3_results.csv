@@ -1,0 +1,4 @@
+model,split,seed_scope,viable_pct,mean_f_pct,useful_at_0_5_pct,bok2_useful_pct,bok4_useful_pct,amrfinder_all11_pct,amrfinder_cov9_pct,extra_ori_amr,prodigal_pep_tag_pct,mean_length_bp,gc_pct,sequence_novelty_pct
+PlasmidLM-kmer6 v2.0 (Base),cluster_v3 (n=468),cluster_base_s42,74.15,,47.70,,78.42,55.17,58.9,0.57,,,50.4,72.2
+PlasmidLM-kmer6-GRPO-plannotate v2.0 (3-seed mean ± SD),cluster_v3 (n=468),exp2_v2 (seeds 42-44),83.3 ± 0.2,49.2 ± 0.2,58.0 ± 0.7,74.7 ± 0.9,85.5 ± 0.8,61.0 ± 0.2,65.0 ± 0.3,0.77 ± 0.01,16.6 ± 0.7,11138 ± 136,50.5,81.1 ± 0.9
+PlasmidLM-kmer6-GRPO-plannotate (main checkpoint),cluster_v3 (n=468),exp2_v2_s44,83.49,49.14,58.49,,,61.26,65.37,0.763,16.10,11264,50.5,

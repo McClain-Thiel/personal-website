@@ -1,0 +1,7 @@
+config,ori_weight,promoter_weight,terminator_weight,marker_weight,cds_weight,length_reward_mode,repeat_penalty_enabled,location_aware,ideal_min_bp,ideal_max_bp,min_bp,max_bp,repeat_min_bp,repeat_penalty_per_region
+full_reward,1.0,1.0,0.5,1.0,1.0,true,true,true,3000,6000,2000,30000,50,0.1
+no_repeat_penalty,1.0,1.0,0.5,1.0,1.0,true,false,true,3000,6000,2000,30000,50,0.1
+no_length_prior,1.0,1.0,0.5,1.0,1.0,false,true,true,3000,6000,2000,30000,50,0.1
+no_cassette_bonus,1.0,1.0,0.5,1.0,1.0,true,true,false,3000,6000,2000,30000,50,0.1
+cds_only,0.001,0.001,0.001,0.001,1.0,false,false,false,3000,6000,2000,30000,50,0.1
+length_only,0.001,0.001,0.001,0.001,0.001,true,false,false,3000,6000,2000,30000,50,0.1
