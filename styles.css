@@ -299,7 +299,9 @@ a {
 
 .profile-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
+  row-gap: 10px;
   margin-bottom: 30px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -376,6 +378,17 @@ a {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.publication-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.publication-links .publication-link {
+  margin-top: 0;
 }
 
 .project {
