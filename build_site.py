@@ -43,6 +43,7 @@ AUTHOR = {
     "sameAs": [
         "https://orcid.org/0000-0002-5633-6115",
         "https://scholar.google.com/citations?hl=en&user=wgbzrtIAAAAJ",
+        "https://openreview.net/profile?id=~McClain_Thiel1",
         "https://github.com/McClain-Thiel",
         "https://huggingface.co/McClain",
         "https://www.linkedin.com/in/mcclain-thiel/",
